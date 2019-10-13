@@ -13,7 +13,6 @@ class LinearHash:
 		self.bucks = {}
 		self.bucks[0] = self.bucks[1] = [[]]
 
-
 	def add_bucket(self):
 		'''Adding a new bucket'''
 
@@ -77,4 +76,4 @@ if __name__ == "__main__":
 
 	with open(sys.argv[1], 'r') as f:
 		for line in f:
-			hash_obj.insert(int(line))
+			hash_obj.insert(int(line.strip()))
