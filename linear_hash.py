@@ -1,8 +1,11 @@
 import sys
 
+
 class LinearHash:
 
 	def __init__(self):
+		'''Initialising the class variables.'''
+
 		self.keys = 0
 		self.total_blocks = 2
 		self.split_idx = 0
@@ -10,9 +13,11 @@ class LinearHash:
 		self.bucks = {}
 		self.bucks[0] = self.bucks[1] = [[]]
 
+
 	def add_bucket(self):
+		'''Adding a new bucket'''
+
 		self.bucks[len(self.bucks.keys())] = [[]]
-		to_update = []
 		self.total_blocks += 1
 
 		if len(self.bucks.keys()) > 1<<(self.idx_hash+1):
@@ -30,6 +35,7 @@ class LinearHash:
 
 		for val in to_update:
 			hash_val = val % (1<<self.idx_hash)
+
 			if self.split_idx > hash_val:
 				hash_val = val % (1<<(self.idx_hash+1))
 
@@ -38,7 +44,10 @@ class LinearHash:
 					self.bucks[hash_val].append([])
 				self.bucks[hash_val][-1].append(val)
 
+
 	def insert(self, val):
+		'''Inserting into the hash table'''
+
 		hash_val = val % (1<<self.idx_hash)
 
 		if self.split_idx > hash_val:
@@ -58,7 +67,9 @@ class LinearHash:
 		if self.keys / (self.total_blocks * 250.0) > 0.75:
 			self.add_bucket()
 
+
 if __name__ == "__main__":
+
 	if len(sys.argv) != 2:
 		sys.exit("Usage: python file.py input_file")
 
